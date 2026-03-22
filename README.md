@@ -14,4 +14,4 @@ make test
 
 ## License
 
-[ISC](jsont/LICENSE.md)
+[ISC](LICENSE)
