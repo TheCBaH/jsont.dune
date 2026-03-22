@@ -1,0 +1,90 @@
+(subdir jsont/src
+ (library
+  (name jsont)
+  (public_name jsont)
+  (modules jsont_base jsont)
+  (flags (:standard -w -27-32-34)))
+
+ (subdir bytesrw
+  (library
+   (name jsont_bytesrw)
+   (public_name jsont.bytesrw)
+   (optional)
+   (flags (:standard -w -27-32-34-35-69))
+   (libraries bytesrw jsont)))
+
+ (subdir brr
+  (library
+   (name jsont_brr)
+   (public_name jsont.brr)
+   (optional)
+   (libraries brr jsont))))
+
+(subdir jsont/doc
+ (documentation
+  (package jsont)))
+
+(subdir jsont/test
+ (env
+  (_
+   (flags (:standard -w -27-32-33-34-69))))
+
+ (executable
+  (name jsont_tool)
+  (public_name jsont)
+  (package jsont)
+  (optional)
+  (modules jsont_tool)
+  (libraries cmdliner bytesrw jsont.bytesrw jsont))
+
+ ; Test support library (unwrapped so Test_common is accessible directly)
+ (library
+  (name jsont_test_common)
+  (modules test_common test_common_samples)
+  (wrapped false)
+  (libraries b0.std jsont))
+
+ (test
+  (name test_bytesrw)
+  (modules test_bytesrw)
+  (libraries b0.std bytesrw jsont.bytesrw jsont jsont_test_common))
+
+ (test
+  (name test_json)
+  (modules test_json)
+  (libraries b0.std jsont.bytesrw jsont jsont_test_common))
+
+ (executable
+  (name quickstart)
+  (modules quickstart)
+  (libraries jsont.bytesrw jsont))
+
+ (executable
+  (name cookbook)
+  (modules cookbook)
+  (libraries jsont))
+
+ (executable
+  (name trials)
+  (modules trials)
+  (libraries jsont))
+
+ (executable
+  (name topojson)
+  (modules topojson)
+  (libraries cmdliner bytesrw jsont.bytesrw jsont))
+
+ (executable
+  (name geojson)
+  (modules geojson)
+  (libraries cmdliner bytesrw jsont.bytesrw jsont))
+
+ (executable
+  (name json_rpc)
+  (modules json_rpc)
+  (libraries jsont))
+
+ (executable
+  (name test_seriot_suite)
+  (modules test_seriot_suite)
+  (libraries b0.std cmdliner jsont.bytesrw jsont)))
